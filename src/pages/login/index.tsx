@@ -1,9 +1,14 @@
-import React from 'react'
 import { Button, message, Form, type FormProps, Input, Card } from 'antd'
-import { useMutate } from '../utils/axios/useRequest'
+import { useMutate } from '../../utils/axios/useRequest'
 import Cookies from 'js-cookie'
+import { useNavigate, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/userSlice'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const loginReq = useMutate({
     method: 'post',
     url: 'http://localhost:3000/authentication/sign-in',
@@ -12,6 +17,13 @@ const Login = () => {
       console.log(data)
       Cookies.set('accessToken', data?.accessToken)
       Cookies.set('refreshToken', data?.refreshToken)
+      navigate('/')
+      dispatch(
+        login({
+          accessToken: data?.accessToken,
+          refreshToken: data?.refreshToken,
+        })
+      )
     },
     errorCallback: () => {
       message.error('')
@@ -68,6 +80,13 @@ const Login = () => {
               Submit
             </Button>
           </Form.Item>
+
+          <Link
+            to="/register"
+            className="text-primary w-full text-center block"
+          >
+            Create an Account
+          </Link>
         </Form>
       </Card>
     </div>
