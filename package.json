@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.1",
     "@reduxjs/toolkit": "^2.2.1",
     "antd": "^5.15.1",
     "axios": "^1.6.7",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.11.25",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",

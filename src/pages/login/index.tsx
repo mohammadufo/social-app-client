@@ -13,8 +13,7 @@ const Login = () => {
     method: 'post',
     url: 'http://localhost:3000/authentication/sign-in',
     successCallback(data) {
-      message.success('Welcome!')
-      console.log(data)
+      message.success('welcome!👋🏻')
       Cookies.set('accessToken', data?.accessToken)
       Cookies.set('refreshToken', data?.refreshToken)
       navigate('/')
@@ -26,7 +25,7 @@ const Login = () => {
       )
     },
     errorCallback: () => {
-      message.error('')
+      message.error('Error💥')
     },
   })
 

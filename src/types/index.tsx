@@ -4,4 +4,8 @@ export interface IGlobalState {
     refreshToken: string
     userInfo: any
   }
+  search: {
+    userTerm: string
+    postTerm: string
+  }
 }
