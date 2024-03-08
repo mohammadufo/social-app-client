@@ -1,10 +1,7 @@
-import { Avatar, Button, FloatButton, Form, Pagination, Tooltip } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { Pagination } from 'antd'
 import useTableHandler from '../table/useTableHandler'
-import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { IGlobalState } from '../../types'
-import { useMutate } from '../../utils/axios/useRequest'
 import User from './User'
 
 const Users = () => {

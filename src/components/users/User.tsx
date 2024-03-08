@@ -37,8 +37,6 @@ const User = ({ item }: { item: any }) => {
     url: `http://localhost:3000/follow/isFollowed/${item?.id}`,
   })
 
-  console.log('isFollowedData', isFollowedData)
-
   useEffect(() => {
     setIsFollowed(!!isFollowedData)
   }, [isFollowedData])

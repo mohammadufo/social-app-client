@@ -8,13 +8,13 @@ import {
   UserOutlined,
   SearchOutlined,
   FileImageOutlined,
-  PlusOutlined,
+  MenuUnfoldOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Avatar, Dropdown, FloatButton, Input, Layout, Menu, theme } from 'antd'
 import defAvatar from '/avatar.png'
 import { clearTerm, setPostTerm, setUserTerm } from '../redux/searchSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useQueryClient } from 'react-query'
 
 const { Header, Content, Footer, Sider } = Layout
@@ -39,6 +39,8 @@ const Menuitems = [
 
 const PrivateLayout = () => {
   const cache = useQueryClient()
+
+  const [showSider, setShowSider] = useState(false)
 
   const {
     token: { colorBgContainer },
@@ -82,7 +84,7 @@ const PrivateLayout = () => {
   }, [location.pathname])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    location.pathname === 'users'
+    location.pathname === '/users'
       ? dispatch(setUserTerm(e.target.value))
       : dispatch(setPostTerm(e.target.value))
 
@@ -90,33 +92,47 @@ const PrivateLayout = () => {
   }
 
   return (
-    <Layout hasSider>
-      <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      >
-        <div className="demo-logo-vertical">
-          <h2 className="w-full text-center text-primary">Social App.</h2>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['4']}
-          items={Menuitems}
+    <div className="w-screen flex items-start">
+      {showSider ? (
+        <div
+          className="absolute w-screen h-screen z-40 bg-black/25 top-0"
+          onClick={() => setShowSider(false)}
         />
-      </Sider>
-      <Layout style={{ marginLeft: 200 }}>
+      ) : null}
+      <div
+        className={`absolute transition-all bg-slate-900 z-40 md:relative overflow-auto h-screen w-52 top-0 bottom-0 ${
+          showSider ? 'start-0' : '-start-[18rem]'
+        } md:!left-0`}
+      >
+        <Sider className="!w-full !h-full min">
+          <div className="demo-logo-vertical">
+            <h2 className="w-full text-center text-primary">Social App.</h2>
+          </div>
+          <Menu
+            defaultSelectedKeys={[location?.pathname]}
+            style={{
+              height: '100%',
+              color: 'black',
+              fontSize: '14px',
+            }}
+            className="!border-none"
+            theme="dark"
+            mode="inline"
+            items={Menuitems}
+          />
+        </Sider>
+      </div>
+      <Layout className="w-full">
         <Header
           style={{ background: colorBgContainer }}
           className="flex items-center justify-between px-8"
         >
-          <div className=""></div>
+          <div
+            className="block md:hidden"
+            onClick={() => setShowSider((prev) => !prev)}
+          >
+            <MenuUnfoldOutlined />
+          </div>
           <div className="">
             <Input
               placeholder="Search"
@@ -130,7 +146,7 @@ const PrivateLayout = () => {
             </Dropdown>
           </div>
         </Header>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+        <Content className="mx-6 my-4">
           {accessToken ? (
             <div>
               <Outlet />
@@ -143,7 +159,7 @@ const PrivateLayout = () => {
           ©{new Date().getFullYear()} Created by Muhammad UFO
         </Footer>
       </Layout>
-    </Layout>
+    </div>
   )
 }
 
