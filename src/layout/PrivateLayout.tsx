@@ -41,7 +41,7 @@ const PrivateLayout = () => {
   const cache = useQueryClient()
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken()
 
   const location = useLocation()
@@ -51,7 +51,7 @@ const PrivateLayout = () => {
   )
   const dispatch = useDispatch()
 
-  const { data, isLoading } = useRequest({
+  const { data: profileData, isLoading } = useRequest({
     queryKey: 'profile',
     url: `http://localhost:3000/users/profile`,
   })
@@ -75,7 +75,7 @@ const PrivateLayout = () => {
     },
   ]
 
-  dispatch(setProfile(data))
+  dispatch(setProfile(profileData))
 
   useEffect(() => {
     dispatch(clearTerm())

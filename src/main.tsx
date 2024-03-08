@@ -14,12 +14,14 @@ import PublicLayout from './layout/PublicLayout'
 import PrivateLayout from './layout/PrivateLayout'
 import Home from './pages/home'
 import Register from './pages/register'
+import UsersPage from './pages/users'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<PrivateLayout />}>
         <Route index={true} element={<Home />}></Route>
+        <Route path="/users" element={<UsersPage />}></Route>
       </Route>
       <Route path="" element={<PublicLayout />}>
         <Route path="login" element={<Login />}></Route>
